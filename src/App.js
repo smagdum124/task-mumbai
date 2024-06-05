@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import HorizontalNavbar from './pages/HorizontalNavbar';
+import VerticalNavbar from './pages/VerticalNavbar';
+import ButtonGroup from './pages/ButtonGroup';
+import MainContent from './components/MainContent';
+import Copyright from './pages/Copyright';
+import '../src/assets/style/style.css'
 
 function App() {
+  const [activeComponent, setActiveComponent] = useState('basicInfo');
+
+  const handleButtonClick = (componentName) => {
+    setActiveComponent(componentName);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="app">
+        <VerticalNavbar />
+        <div className="content-container">
+          <HorizontalNavbar />
+          <div className="main-section">
+            <h4>Group Settings  &gt; Account/Group Details</h4>
+            <ButtonGroup onButtonClick={handleButtonClick} />
+            <MainContent activeComponent={activeComponent} />
+          </div>
+          <div className="footer">
+            <Copyright />
+          </div>
+        </div>
+      </div>
+    </Router>
   );
 }
 
